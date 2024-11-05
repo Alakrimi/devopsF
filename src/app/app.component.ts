@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NomDuServiceService } from './nom-du-service.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { piste } from './Piste';
+import { foyer } from './universite';
 
 @Component({
   selector: 'app-root',
@@ -9,36 +9,34 @@ import { piste } from './Piste';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'gestionSkiFront';
+  title = 'foyerFront';
 
   form: boolean = false;
   closeResult!: string;
-  listpistes: any;
-  piste!:any;
+  listfoyers: any;
+  foyer!:any;
 
-  constructor(private pisteService: NomDuServiceService, private modalService: NgbModal ) { }
+  constructor(private foyerService: NomDuServiceService, private modalService: NgbModal ) { }
 
   ngOnInit(): void {
-    this.getAllpiste();
-    console.log(this.listpistes)
-    this.piste={
-      numPiste : null,
-      namePiste: null,
-      color:null,
-      length : null,
-      slope :null
+    this.getAllfoyer();
+    console.log(this.listfoyers)
+    this.foyer={
+      idUniversite : null,
+      nomUniversite: null,
+      adresse:null
     }
 
   }
 
-  getAllpiste(){
-    return this.pisteService.getAllPiste().subscribe(res=>{
-      this.listpistes = res;
+  getAllfoyer(){
+    return this.foyerService.getAllfoyer().subscribe(res=>{
+      this.listfoyers = res;
     });
   }
-  addpiste(p: any) {
-    this.pisteService.addPiste(p).subscribe(() => {
-      this.getAllpiste();
+  addfoyer(p: any) {
+    this.foyerService.addfoyer(p).subscribe(() => {
+      this.getAllfoyer();
       this.form = false;
     });
   }
@@ -46,9 +44,9 @@ export class AppComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.piste = action
+      this.foyer = action
     else
-      this.piste = new piste();
+      this.foyer = new foyer();
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
