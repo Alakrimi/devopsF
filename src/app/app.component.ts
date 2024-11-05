@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NomDuServiceService } from './nom-du-service.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { foyer } from './universite';
+import { universite } from './universite';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +9,19 @@ import { foyer } from './universite';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'foyerFront';
+  title = 'universiteFront';
 
   form: boolean = false;
   closeResult!: string;
-  listfoyers: any;
-  foyer!:any;
+  listuniversites: any;
+  universite!:any;
 
-  constructor(private foyerService: NomDuServiceService, private modalService: NgbModal ) { }
+  constructor(private universiteService: NomDuServiceService, private modalService: NgbModal ) { }
 
   ngOnInit(): void {
-    this.getAllfoyer();
-    console.log(this.listfoyers)
-    this.foyer={
+    this.getAlluniversite();
+    console.log(this.listuniversites)
+    this.universite={
       idUniversite : null,
       nomUniversite: null,
       adresse:null
@@ -29,14 +29,14 @@ export class AppComponent implements OnInit {
 
   }
 
-  getAllfoyer(){
-    return this.foyerService.getAllfoyer().subscribe(res=>{
-      this.listfoyers = res;
+  getAlluniversite(){
+    return this.universiteService.getAlluniversite().subscribe(res=>{
+      this.listuniversites = res;
     });
   }
-  addfoyer(p: any) {
-    this.foyerService.addfoyer(p).subscribe(() => {
-      this.getAllfoyer();
+  adduniversite(p: any) {
+    this.universiteService.adduniversite(p).subscribe(() => {
+      this.getAlluniversite();
       this.form = false;
     });
   }
@@ -44,9 +44,9 @@ export class AppComponent implements OnInit {
 
   open(content: any, action: any) {
     if (action != null)
-      this.foyer = action
+      this.universite = action
     else
-      this.foyer = new foyer();
+      this.universite = new universite();
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

@@ -1,8 +1,6 @@
-export class piste {
-    numPiste: any;  
-    namePiste: any;
-    color: any;  
-    length: any;
-    slope!: any;
-   
+export class universite {
+    idUniversite: any;  
+    adresse: any;
+    nomUniversite: any;  
+ 
 }
